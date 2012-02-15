@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+require "rubygems"
+require "json"
+hash = JSON.parse(File.read(File.join(ENV["TM_PROJECT_DIRECTORY"], ".classindex")))
+data = File.read(ENV["TM_FILEPATH"]).split("\n")
+while arg = STDIN.gets
+  if values = hash[arg] and value = values.first
+    data.insert(2, "import " + value[/\S+/])
+  else
+    STDERR.puts "Not found"
+  end
+end
+print data.join("\n")</string>
+	<key>fallbackInput</key>
+	<string>word</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
+	<key>name</key>
+	<string>Generate import</string>
+	<key>output</key>
+	<string>replaceDocument</string>
+	<key>uuid</key>
+	<string>E3DE2B67-C9AE-41F3-ADCB-6F9F9B48B936</string>
+</dict>
+</plist>

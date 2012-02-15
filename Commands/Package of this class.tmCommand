@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+require "rubygems"
+require "json"
+hash = JSON.parse(File.read(File.join(ENV["TM_PROJECT_DIRECTORY"], ".classindex")))
+while arg = STDIN.gets
+  if values = hash[arg]
+    values.each do |value|
+      puts value
+    end
+  else
+    STDERR.puts "Not found"
+  end
+end
+</string>
+	<key>fallbackInput</key>
+	<string>word</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
+	<key>name</key>
+	<string>Package of this class</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>E7F8999B-6D73-4957-9D8C-2ECE60254320</string>
+</dict>
+</plist>
